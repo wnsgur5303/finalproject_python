@@ -24,25 +24,25 @@ print(seri.name)
 seri.write(cmd.encode())
 
 a = 1
-while a:
+while True:
     if seri.in_waiting != 0 :
         content1 = seri.readline()
         content2 = content1[:-2].decode().split('/')
         print(content1[:-2].decode())
-#       print(content2[1])
         print(content2[0],content2[1],content2[2],content2[3])
-#       URL = 'http://192.168.0.117/springboard/board/addBoard?addboardname='+content2[0]
-#       response = requests.get(URL)
-#       response.status_code
-#       response.text
+        #서버를 통해 데이터넣기
+        URL = 'http://192.168.0.126/finalProject/fdata/addData?msr_code='+content2[0]+'&msr_temp='+content2[1]+'&msr_humid='+content2[2]+'&msr_bright='+content2[3]
+        response = requests.get(URL)
+        response.status_code
+        response.text
         
-        
-        conn=cx_Oracle.connect("team3_202008f/java@112.220.114.130:1521/xe")
-        cursor=conn.cursor() #커서 생성
-        sql="insert into msrrec values(seq_msrrec.nextval,:1,sysdate,:2,:3,:4)"
-        data=(content2[0],content2[1],content2[2],content2[3])
-        cursor.execute(sql,data)
-        cursor.close()
-        conn.commit()
-        conn.close()
+        #직접 db에 넣기
+#         conn=cx_Oracle.connect("team3_202008f/java@112.220.114.130:1521/xe")
+#         cursor=conn.cursor() #커서 생성
+#         sql="insert into mserec values(seq_mserec.nextval,:1,sysdate,:2,:3,:4)"
+#         data=(content2[0],content2[1],content2[2],content2[3])
+#         cursor.execute(sql,data)
+#         cursor.close()
+#         conn.commit()
+#         conn.close()
         
